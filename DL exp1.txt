@@ -1,0 +1,52 @@
+Tensorflow:-
+tf.constant: Creates a constant tensor with specified values.
+tf.Variable: Defines a mutable tensor that can be updated during training.
+tf.placeholder: Used to define input tensors that will be fed with data during a session run.
+tf.data.Dataset: A powerful API to create input pipelines for handling large datasets during training.
+tf.add: Element-wise addition of tensors.
+tf.subtract: Element-wise subtraction of tensors.
+tf.multiply: Element-wise multiplication of tensors.
+tf.divide: Element-wise division of tensors.
+tf.matmul: Matrix multiplication of tensors.
+tf.nn.relu: Rectified Linear Unit (ReLU) activation function.
+tf.nn.softmax: Softmax activation function, often used for multi-class classification problems.
+tf.nn.sigmoid: Sigmoid activation function, commonly used in binary classification problems.
+tf.nn.dropout: Used for implementing dropout regularization to reduce overfitting.
+tf.reduce_mean: Computes the mean of tensor elements along specified axes.
+tf.reduce_sum: Computes the sum of tensor elements along specified axes.
+tf.reduce_max: Computes the maximum value of tensor elements along specified axes.
+tf.reduce_min: Computes the minimum value of tensor elements along specified axes.
+tf.train.Optimizer: Base class for various optimization algorithms like SGD, Adam, RMSProp, etc.
+tf.GradientTape: Used for automatic differentiation to compute gradients with respect to variables.
+tf.train.Checkpoint: Provides saving and restoring model parameters during training.
+tf.keras.layers: A high-level API for defining layers in neural networks.
+tf.keras.models: Allows the creation and management of neural network models.
+tf.keras.losses: Contains various loss functions used in model training.
+tf.keras.metrics: Provides evaluation metrics for monitoring model performance.
+tf.keras.optimizers: Implements various optimization algorithms for training models.
+tf.keras.callbacks: Allows custom callbacks to be executed during training.
+tf.keras.preprocessing: Provides tools for data preprocessing and augmentation.
+
+Keras:-
+keras.models.Sequential: A linear stack of layers used to create a sequential model. It allows you to build a neural network by stacking layers on top of each other.
+keras.models.Model: The base class for creating more complex models that can have multiple inputs and outputs or shared layers. It allows for more flexibility in defining models.
+keras.layers.Layer: The base class for creating custom layers in Keras. It enables you to define custom operations for specific layers in a neural network.
+keras.layers.Input: Defines an input tensor for the model.
+keras.layers.Dense: Fully connected layer, also known as a dense layer, where each neuron is connected to every neuron in the previous layer.
+keras.layers.Conv2D: 2D convolutional layer used for image processing tasks.
+keras.layers.MaxPooling2D: 2D max-pooling layer used to downsample feature maps in an image.
+keras.layers.Dropout: Used for implementing dropout regularization to reduce overfitting.
+keras.layers.Activation: Applies an activation function to the output of a layer.
+keras.layers.BatchNormalization: Applies batch normalization to the output of a layer, helping with faster convergence during training.
+keras.losses: Contains various loss functions used during model training.
+keras.metrics: Provides evaluation metrics for monitoring model performance.
+keras.optimizers: Implements various optimization algorithms for training models.
+keras.callbacks: Allows custom callbacks to be executed during training.
+keras.utils.to_categorical: Converts class labels into one-hot encoded vectors.
+keras.preprocessing: Provides tools for data preprocessing and augmentation.
+keras.datasets: Contains built-in datasets that can be used for training and testing models.
+keras.initializers: Provides various methods for initializing the weights of layers.
+keras.regularizers: Implements various regularization techniques like L1 and L2 regularization.
+keras.constraints: Defines constraints that can be applied to the weights of layers.
+keras.backend: Provides low-level operations on tensors, useful for advanced customization of models.
+keras.utils.plot_model: Used to visualize the architecture of a Keras model.
