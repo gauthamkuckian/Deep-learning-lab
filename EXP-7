@@ -1,0 +1,116 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import warnings
+warnings.filterwarnings("ignore")
+     
+
+dataset_train = pd.read_csv('GOOG.csv',parse_dates=True , index_col="date")
+dataset_train.head()
+train_size = int(len(dataset_train)*0.75)
+test_size = len(dataset_train)-train_size
+     
+
+plt.figure(figsize=(15,6))
+dataset_train['open'].plot()
+dataset_train['close'].plot()
+plt.title('Opening & Closing Price')
+plt.legend(['Open Price','Close Price'])
+plt.tight_layout()
+plt.show()
+dataset=dataset_train['close']
+dataset = pd.DataFrame(dataset)
+
+data=dataset.values
+
+data.shape
+from sklearn.preprocessing import MinMaxScaler
+     
+
+sc = MinMaxScaler(feature_range=(0,1))
+scaled_data = sc.fit_transform(np.array(data).reshape(-1,1))
+     
+
+train_size = int(len(data)*0.75)
+test_size = len(data)-train_size
+
+print(f'Train Size :{train_size}, Test size {test_size}')
+
+train_data = scaled_data[:train_size,0:1]
+test_data = scaled_data[train_size-60:,0:1]
+X_train = []
+y_train = []
+
+for i in range(60,len(train_data)):
+    X_train.append(train_data[i-60:i,0])
+    y_train.append(train_data[i,0])
+     
+
+X_train , y_train = np.array(X_train),np.array(y_train)
+     
+
+X_train = np.reshape(X_train,(X_train.shape[0],X_train.shape[1],1))
+     
+
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense,LSTM,Dropout
+from keras.callbacks import EarlyStopping
+     
+
+model = Sequential()
+
+model.add(LSTM(units=50,return_sequences=True,input_shape = (X_train.shape[1],1)))
+model.add(LSTM(units=50,return_sequences=True))
+model.add(LSTM(units=50))
+model.add(Dense(units=1))
+
+model.compile(optimizer='adam',loss='mse',metrics='mean_absolute_error')
+     
+
+model.summary()
+#Model Evaluation
+plt.plot(history.history['loss'])
+plt.plot(history.history['mean_absolute_error'])
+plt.legend(['Mean Squared Error','Mean Absoulute Error'])
+plt.title('losses')
+plt.xlabel('epochs')
+plt.ylabel('loss')
+plt.show()
+x_test = []
+y_test = []
+
+for i in range(60,len(test_data)):
+    x_test.append(test_data[i-60:i,0])
+    y_test.append(test_data[i,0])
+     
+
+x_test= np.array(x_test)
+y_test=np.array(y_test)
+     
+
+x_test=np.reshape(x_test,(x_test.shape[0],x_test.shape[1],1))
+     
+
+prediction = model.predict(x_test)
+
+prediction = sc.inverse_transform(prediction)
+prediction.shape
+y_test = sc.inverse_transform([y_test])
+
+RMSE = np.sqrt(np.mean(y_test-prediction)**2)
+RMSE
+train = dataset.iloc[:train_size,0:1]
+test = dataset.iloc[train_size:,0:1]
+
+test['Prediction']=prediction
+
+plt.figure(figsize=(16,6))
+plt.title('Google Stock Price Prediction using LSTM',fontsize=18)
+plt.xlabel('Date',fontsize=18)
+plt.ylabel('Close price',fontsize=18)
+plt.plot(train['close'],linewidth=3)
+plt.plot(test['close'],linewidth=3)
+plt.plot(test['Prediction'],linewidth=3)
+plt.legend(['Train','Test','Prediction'])
+plt.show()
